@@ -17,13 +17,19 @@ package com.example.android.recyclerview;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.LinearLayoutManager;
 
 public class MainActivity extends AppCompatActivity {
 
     // TODO (1) Create a private static final int called NUM_LIST_ITEMS and set it equal to 100
+    private static final int NUM_LIST_ITEMS = 100;
 
     // TODO (2) Create a GreenAdapter variable called mAdapter
+    private GreenAdapter mAdapter;
     // TODO (3) Create a RecyclerView variable called mNumbersList
+    private RecyclerView mNumbersList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +37,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // TODO (4) Use findViewById to store a reference to the RecyclerView in mNumbersList
+        this.mNumbersList = (RecyclerView)findViewById(R.id.rv_numbers);
 
         // TODO (5) Create a LinearLayoutManager variable called layoutManager
+
         // TODO (6) Use setLayoutManager on mNumbersList with the LinearLayoutManager we created above
 
         // TODO (7) Use setHasFixedSize(true) to designate that the contents of the RecyclerView won't change an item's size
@@ -40,5 +48,11 @@ public class MainActivity extends AppCompatActivity {
         // TODO (8) Store a new GreenAdapter in mAdapter and pass it NUM_LIST_ITEMS
 
         // TODO (9) Set the GreenAdapter you created on mNumbersList
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        this.mNumbersList.setLayoutManager(layoutManager);
+        this.mNumbersList.setHasFixedSize(true);
+
+        this.mAdapter =  new GreenAdapter(this.NUM_LIST_ITEMS);
+        this.mNumbersList.setAdapter(this.mAdapter);
     }
 }

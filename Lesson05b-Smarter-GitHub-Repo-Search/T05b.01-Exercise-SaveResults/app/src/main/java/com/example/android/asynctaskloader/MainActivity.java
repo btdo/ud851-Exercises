@@ -17,7 +17,9 @@ package com.example.android.asynctaskloader;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,10 +33,13 @@ import java.io.IOException;
 import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     // TODO (1) Create a static final key to store the query's URL
+    private static final String URL_KEY = "url";
 
     // TODO (2) Create a static final key to store the search's raw JSON
+    private static final String RESULT_KEY = "result";
 
     private EditText mSearchBoxEditText;
 
@@ -60,6 +65,15 @@ public class MainActivity extends AppCompatActivity {
         mLoadingIndicator = (ProgressBar) findViewById(R.id.pb_loading_indicator);
 
         // TODO (9) If the savedInstanceState bundle is not null, set the text of the URL and search results TextView respectively
+        if (savedInstanceState != null){
+            Log.d(TAG, "contains key " + savedInstanceState.containsKey(URL_KEY) + " " + savedInstanceState.containsKey(RESULT_KEY));
+            if (savedInstanceState.containsKey(URL_KEY)){
+                mUrlDisplayTextView.setText(savedInstanceState.getString(URL_KEY));
+            }
+            if (savedInstanceState.containsKey(RESULT_KEY)){
+                mSearchResultsTextView.setText(savedInstanceState.getString(RESULT_KEY));
+            }
+        }
     }
 
     /**
@@ -151,7 +165,22 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    // TODO (3) Override onSaveInstanceState to persist data across Activity recreation
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        String url = mUrlDisplayTextView.getText().toString();
+        String contents = mSearchResultsTextView.getText().toString();
+        Log.d(TAG,"saving state " + url + " content "  +  contents);
+        outState.putString(URL_KEY, url);
+        outState.putString(RESULT_KEY, contents);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+    }
+
+// TODO (3) Override onSaveInstanceState to persist data across Activity recreation
     // Do the following steps within onSaveInstanceState
     // TODO (4) Make sure super.onSaveInstanceState is called before doing anything else
 
