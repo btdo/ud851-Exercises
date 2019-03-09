@@ -30,6 +30,12 @@
         android:background="@color/colorAccent"/>
 
 
+    <View android:id="@+id/primaryLight"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/colorPrimaryLight"/>
+
+
     <!-- TextViews that contain all types of text sizes and font families -->
     <TextView
         android:id="@+id/text56"
@@ -71,6 +77,15 @@
         android:text="@string/medium_20"
         android:textSize="20sp"
         android:fontFamily="sans-serif-medium"/>
+
+
+    <TextView
+        android:id="@+id/text16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Small caps 16sp"
+        android:textSize="16sp"
+        android:fontFamily="sans-serif-smallcaps"/>
 
     <!-- TODO (4) Add a text view to display text with a size = 16sp, and a font-family = sans-serif-smallcaps -->
 
